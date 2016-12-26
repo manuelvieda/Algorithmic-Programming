@@ -9,6 +9,6 @@ os:
 
 script:
   - cd ./google-code-jam
-  - mvn --batch-mode --quiet verify
+  - mvn --batch-mode verify
   - cd  ../programming-challenges
-  - mvn --batch-mode --quiet verify
+  - mvn --batch-mode verify

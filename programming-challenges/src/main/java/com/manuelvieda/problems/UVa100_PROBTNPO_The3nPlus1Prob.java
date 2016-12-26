@@ -44,7 +44,7 @@ import java.util.Scanner;
  *
  * @author Manuel E Vieda (https://manuelvieda.com)
  */
-public class UVa100_PROBTNPO_The3nPlus1Problem {
+public class UVa100_PROBTNPO_The3nPlus1Prob {
 
     /**
      * Constant that defines the size of the cache
