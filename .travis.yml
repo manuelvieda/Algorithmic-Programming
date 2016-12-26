@@ -7,9 +7,8 @@ jdk:
 os:
   - linux
 
-before_script:
-  - echo $HOME
-  - echo $JAVA_OPTS
-  - echo $MAVEN_OPTS
-
-script: mvn --batch-mode --quiet verify
+script:
+  - cd ./google-code-jam
+  - mvn --batch-mode --quiet verify
+  - cd  ../programming-challenges
+  - mvn --batch-mode --quiet verify
