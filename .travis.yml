@@ -1,5 +1,15 @@
 language: java
 sudo: false
+
 jdk:
   - oraclejdk8
-  - openjdk8
+
+os:
+  - linux
+
+before_script:
+  - echo $HOME
+  - echo $JAVA_OPTS
+  - echo $MAVEN_OPTS
+
+script: mvn --batch-mode --quiet verify
