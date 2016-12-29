@@ -1,5 +1,6 @@
 package com.manuelvieda.problems;
 
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -57,6 +58,7 @@ public class UVa100_PROBTNPO_The3nPlus1Problem {
     private static long[] cache = new long[cacheSize];
 
     static {
+        cache[0] = 1;
         cache[1] = 1;
         cache[2] = 2;
         cache[4] = 3;
@@ -69,31 +71,34 @@ public class UVa100_PROBTNPO_The3nPlus1Problem {
      */
     public static void main(final String[] args) {
 
-        final Scanner in = new Scanner(System.in);
+        try (
+                final Scanner in = new Scanner(System.in);
+                PrintWriter out = new PrintWriter(System.out, true);
+        ) {
 
-        while (in.hasNextInt()) {
-            int i = in.nextInt();
-            int j = in.nextInt();
-            long resp = maxCycleLength(i, j);
-            System.out.println(i + " " + j + " " + resp);
+            while (in.hasNextInt()) {
+                int i = in.nextInt();
+                int j = in.nextInt();
+                long resp = maxCycleLength(i, j);
+                out.print(i + " " + j + " " + resp + "\n");
+            }
         }
     }
 
     /**
      * Calculates the maximum cycle length for all the numbers between {@code min} and {@code max}
      *
-     * @param min The lower limit of the range (Included)
-     * @param max The upper limit of the range (Included)
-     *
+     * @param start The lower limit of the range (Included)
+     * @param end The upper limit of the range (Included)
      * @return The maximum cycle length
      */
-    public static long maxCycleLength(long min, long max) {
+    public static long maxCycleLength(long start, long end) {
 
-        long start = Math.min(min, max);
-        long end = Math.max(min, max);
+        long min = Math.min(start, end);
+        long max = Math.max(start, end);
         long maxCycleLength = 0;
 
-        for (long i = start; i <= end; i++) {
+        for (long i = min; i <= max; i++) {
             long cycleLength = cycleLength(i);
             if (cycleLength > maxCycleLength) {
                 maxCycleLength = cycleLength;
@@ -107,20 +112,21 @@ public class UVa100_PROBTNPO_The3nPlus1Problem {
     /**
      * Calculates the cycle length for the given positive integer
      *
-     * @param n
-     *
-     * @return
+     * @param n The initial number of the Hailstone sequence to calculate the length
+     * @return The length of the hailstone sequence length for the given number.
      */
     public static long cycleLength(long n) {
+
         if (n < cacheSize && cache[(int) n] != 0) {
             return cache[(int) n];
         } else {
 
-            long length = 1 + cycleLength((n & 1) == 0 ? n >> 1 : 3<<1 + n + 1);
+            long length = 1 + cycleLength((n & 1) == 0 ? n / 2 : 3 * n + 1);
             if (n < cacheSize) {
                 cache[(int) n] = length;
             }
             return length;
         }
     }
+
 }
