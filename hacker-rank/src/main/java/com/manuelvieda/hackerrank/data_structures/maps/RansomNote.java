@@ -1,6 +1,7 @@
 package com.manuelvieda.hackerrank.data_structures.maps;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -41,30 +42,31 @@ public class RansomNote {
 		int m = in.nextInt();
 		int n = in.nextInt();
 
+		boolean possible = true;
+
 		if (n > m) {
-			System.out.println("No");
-			return;
-		}
+			possible = false;
+		} else {
 
-		HashMap<String, Integer> magazine = new HashMap<>(m);
-		for (int magazine_i = 0; magazine_i < m; magazine_i++) {
-			String word = in.next();
-			magazine.compute(word, (k, v) -> v == null ? 1 : v + 1);
+			Map<String, Integer> magazine = new HashMap<>(m);
+			for (int magazine_i = 0; magazine_i < m; magazine_i++) {
+				String word = in.next();
+				magazine.compute(word, (k, v) -> v == null ? 1 : v + 1);
 
-		}
-
-		for (int ransom_i = 0; ransom_i < n; ransom_i++) {
-			String word = in.next();
-			if (!magazine.containsKey(word)) {
-				System.out.println("No");
-				return;
 			}
-			if (magazine.compute(word, (k, v) -> v == null ? -1 : v - 1) < 0) {
-				System.out.println("No");
-				return;
+			for (int ransom_i = 0; ransom_i < n; ransom_i++) {
+				String word = in.next();
+				if (!magazine.containsKey(word)) {
+					possible = false;
+					break;
+				}
+				if (magazine.compute(word, (k, v) -> v == null ? -1 : v - 1) < 0) {
+					possible = false;
+					break;
+				}
 			}
 		}
 
-		System.out.printf("Yes");
+		System.out.println(possible ? "Yes" : "No");
 	}
 }
