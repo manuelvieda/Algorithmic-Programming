@@ -17,5 +17,6 @@ hs_err_pid*
 */.settings/*
 
 #InteliJ
-*/.idea/*
+.idea/
 *.iml
+target/
